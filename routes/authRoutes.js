@@ -1,8 +1,9 @@
-
 const express= require('express');
 const router= express.Router();
 const User = require('../models/user');
 const passport= require('passport');
+
+
 
 
 // router.get('/fakeuser', async function(req, res){
@@ -16,8 +17,6 @@ const passport= require('passport');
 //     res.send(newUser);
 
 // })
-
-
 
 //1- Get the signup form
 router.get('/register', (req, res) => {
@@ -55,7 +54,6 @@ router.get('/login', function (req, res) {
 })
 
 
-
 // 4-login the user
 router.post('/login',
     passport.authenticate('local',
@@ -70,8 +68,6 @@ router.post('/login',
         res.redirect('/products');
 });
 
-
-
 // 5-log out the user
 router.get('/logout', (req, res) => {
 
@@ -83,5 +79,4 @@ router.get('/logout', (req, res) => {
 
 
 module.exports= router;
-
 

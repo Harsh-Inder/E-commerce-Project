@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/product');
 const Review = require('../models/review');
+const { isLoggedIn} = require('../middleware');
 
-const {isLoggedIn}= require('../middleware');
 
 // Get all the products
 router.get('/products', async(req, res) => {
@@ -21,12 +21,12 @@ router.get('/products', async(req, res) => {
 });
 
 // Get the new from to create new product
-router.get('/products/new', isLoggedIn, (req, res) => {
+router.get('/products/new',isLoggedIn, (req, res) => {
     res.render('products/new')
 });
 
 // create a new product with the given payload
-router.post('/products', isLoggedIn, async (req, res) => {
+router.post('/products',isLoggedIn, async (req, res) => {
     
     try {
         const newProduct = {
@@ -63,7 +63,7 @@ router.get('/products/:id', async (req, res) => {
 
 
 // getting the edit form prefilled with the data
-router.get('/products/:id/edit', isLoggedIn, async (req, res) => {
+router.get('/products/:id/edit',isLoggedIn, async (req, res) => {
     
     try {
         const { id } = req.params;
@@ -97,7 +97,7 @@ router.patch('/products/:id',isLoggedIn, async (req, res) => {
     }
 });
 
-router.delete('/products/:id', isLoggedIn, async (req, res) => {
+router.delete('/products/:id',isLoggedIn, async (req, res) => {
 
     try {
         const { id } = req.params;
@@ -124,7 +124,7 @@ router.post('/products/:id/review',isLoggedIn, async(req, res) => {
 
         const { rating, comment } = req.body;
 
-        const review = new Review({ rating, comment, user:req.user.username });
+        const review = new Review({ rating, comment,user:req.user.username });
 
         product.reviews.push(review);
 
